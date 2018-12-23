@@ -7,6 +7,7 @@ from net_mnist import Generator
 import numpy as np
 from PIL import Image
 
+
 def main():
     parser = argparse.ArgumentParser(description='Chainer: MNIST predicting CNN')
     parser.add_argument('--n_hidden', '-n', type=int, default=100,

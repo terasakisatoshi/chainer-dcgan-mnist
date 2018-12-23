@@ -4,6 +4,7 @@ from chainer import Variable
 
 
 class DCGANUpdater(chainer.training.StandardUpdater):
+
     def __init__(self, *args, **kwargs):
         self.gen, self.dis = kwargs.pop('models')
         super(DCGANUpdater, self).__init__(*args, **kwargs)

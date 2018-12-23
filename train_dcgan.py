@@ -60,11 +60,11 @@ def main():
     opt_dis = make_optimizer(dis)
 
     # Load the MNIST dataset
-    train, _ = chainer.datasets.get_mnist(withlabel=False, ndim=3, scale=255.) # ndim=3 : (ch,width,height)
+    train, _ = chainer.datasets.get_mnist(withlabel=False, ndim=3, scale=255.)  # ndim=3 : (ch,width,height)
     train_iter = chainer.iterators.SerialIterator(train, args.batchsize)
 
     # Set up a trainer
-    updater = DCGANUpdater(models=(gen, dis), iterator=train_iter, optimizer={'gen':opt_gen, 'dis':opt_dis}, device=args.gpu)
+    updater = DCGANUpdater(models=(gen, dis), iterator=train_iter, optimizer={'gen': opt_gen, 'dis': opt_dis}, device=args.gpu)
     trainer = training.Trainer(updater, (args.epoch, 'epoch'), out=args.out)
 
     epoch_interval = (1, 'epoch')
@@ -77,7 +77,7 @@ def main():
     trainer.extend(extensions.snapshot_object(gen, 'gen_epoch_{.updater.epoch}.npz'), trigger=epoch_interval)
     trainer.extend(extensions.snapshot_object(dis, 'dis_epoch_{.updater.epoch}.npz'), trigger=epoch_interval)
     trainer.extend(extensions.LogReport(trigger=display_interval))
-    trainer.extend(extensions.PrintReport(['epoch', 'iteration', 'gen/loss', 'dis/loss',]), trigger=display_interval)
+    trainer.extend(extensions.PrintReport(['epoch', 'iteration', 'gen/loss', 'dis/loss', ]), trigger=display_interval)
     trainer.extend(extensions.ProgressBar(update_interval=10))
     trainer.extend(out_generated_image(gen, dis, 10, 10, args.seed, args.out), trigger=epoch_interval)
 
